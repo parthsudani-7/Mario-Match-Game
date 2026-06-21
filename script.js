@@ -114,7 +114,7 @@ const supabaseUrl = 'https://xjgfoaglqmfcgvnlypmh.supabase.co/rest/v1/';
 const supabaseKey = 'sb_publishable_pxQ4pTDE-YgyTukoy3ci9g_g6P5h3y3';
 let supabaseClient = null;
 
-if (supabaseUrl && supabaseUrl !== 'YOUR_SUPABASE_URL' && supabaseUrl !== '') {
+if (supabaseUrl && supabaseUrl !== 'https://xjgfoaglqmfcgvnlypmh.supabase.co/rest/v1/' && supabaseUrl !== '') {
   try {
     let cleanUrl = supabaseUrl.trim();
     if (cleanUrl.endsWith('/rest/v1/')) {
