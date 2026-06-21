@@ -110,11 +110,11 @@ const ITEM_SVGS = {
   `
 };
 
-const supabaseUrl = 'https://xjgfoaglqmfcgvnlypmh.supabase.co/rest/v1/';
-const supabaseKey = 'sb_publishable_pxQ4pTDE-YgyTukoy3ci9g_g6P5h3y3';
+const supabaseUrl = 'https://xjgfoaglqmfcgvnlypmh.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhqZ2ZvYWdscW1mY2d2bmx5cG1oIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4MjAzMTkyMCwiZXhwIjoyMDk3NjA3OTIwfQ.fJQpQtrX2wXWWgo4Ghh6mOYdatEubV_kbn0PnUw1D3U';
 let supabaseClient = null;
 
-if (supabaseUrl && supabaseUrl !== 'https://xjgfoaglqmfcgvnlypmh.supabase.co/rest/v1/' && supabaseUrl !== '') {
+if (supabaseUrl && supabaseUrl !== 'YOUR_SUPABASE_URL' && supabaseUrl !== '') {
   try {
     let cleanUrl = supabaseUrl.trim();
     if (cleanUrl.endsWith('/rest/v1/')) {
