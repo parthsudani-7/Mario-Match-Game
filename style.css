@@ -572,7 +572,7 @@ body.modal-open {
   z-index: 1001;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .game-container {
     padding: 12px;
     gap: 12px;
@@ -585,17 +585,31 @@ body.modal-open {
   .control-panel {
     padding: 10px 14px;
     justify-content: center;
+    flex-direction: column;
+    gap: 12px;
   }
   
+  .control-group {
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 8px;
+  }
+  
+  .btn {
+    font-size: 0.6rem;
+    padding: 6px 10px;
+  }
+
+  .btn-icon {
+    width: 34px;
+    height: 34px;
+  }
+
   .stats-dashboard {
     padding: 10px 14px;
     grid-template-columns: repeat(3, 1fr);
     gap: 8px;
-  }
-  
-  .stat-card:nth-child(4),
-  .stat-card:nth-child(5) {
-    grid-column: span 1;
   }
 
   .stat-value {
@@ -605,6 +619,11 @@ body.modal-open {
   .game-main-layout {
     flex-direction: column;
     align-items: center;
+    width: 100%;
+  }
+
+  .game-board-wrapper {
+    width: 100%;
   }
 
   .leaderboard-sidebar {
