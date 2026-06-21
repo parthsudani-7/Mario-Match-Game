@@ -112,11 +112,17 @@ const ITEM_SVGS = {
 
 const supabaseUrl = 'https://xjgfoaglqmfcgvnlypmh.supabase.co/rest/v1/';
 const supabaseKey = 'sb_publishable_pxQ4pTDE-YgyTukoy3ci9g_g6P5h3y3';
-let supabase = null;
+let supabaseClient = null;
 
-if (supabaseUrl && supabaseUrl !== 'https://xjgfoaglqmfcgvnlypmh.supabase.co/rest/v1/' && supabaseKey) {
+if (supabaseUrl && supabaseUrl !== 'YOUR_SUPABASE_URL' && supabaseUrl !== '') {
   try {
-    supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+    let cleanUrl = supabaseUrl.trim();
+    if (cleanUrl.endsWith('/rest/v1/')) {
+      cleanUrl = cleanUrl.slice(0, -9);
+    } else if (cleanUrl.endsWith('/rest/v1')) {
+      cleanUrl = cleanUrl.slice(0, -8);
+    }
+    supabaseClient = window.supabase.createClient(cleanUrl, supabaseKey);
   } catch (e) {
     console.error(e);
   }
@@ -324,9 +330,9 @@ const loadLeaderboard = async () => {
   leaderboardList.innerHTML = '';
   let records = [];
 
-  if (supabase) {
+  if (supabaseClient) {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await supabaseClient
         .from('leaderboard')
         .select('*')
         .eq('difficulty', currentDifficulty)
@@ -383,9 +389,9 @@ const saveScoreToDatabase = async () => {
     time_spent: secondsElapsed
   };
 
-  if (supabase) {
+  if (supabaseClient) {
     try {
-      const { error } = await supabase.from('leaderboard').insert([newRecord]);
+      const { error } = await supabaseClient.from('leaderboard').insert([newRecord]);
       if (error) {
         saveLocalScore(newRecord);
       }
