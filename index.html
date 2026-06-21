@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="./assets/favicon.png?v=2">
+  <title>🎮 Super Mario Match</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rubik:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <div class="game-container">
+    <header class="game-header">
+      <div class="title-container">
+        <h1 class="game-title">SUPER MARIO <span class="highlight">MATCH</span></h1>
+        <p class="game-subtitle">RETRO MEMORY CHALLENGE</p>
+      </div>
+    </header>
+
+    <div class="control-panel game-panel">
+      <div class="control-group">
+        <label for="difficulty-select">DIFFICULTY:</label>
+        <div class="btn-group" id="difficulty-select">
+          <button class="btn btn-diff active" data-diff="easy">EASY</button>
+          <button class="btn btn-diff" data-diff="medium">MEDIUM</button>
+          <button class="btn btn-diff" data-diff="hard">HARD</button>
+        </div>
+      </div>
+      
+      <div class="control-group action-buttons">
+        <button id="change-user-btn" class="btn">LOGOUT</button>
+        <button id="sound-toggle" class="btn btn-icon" title="Toggle Sound">
+          <svg class="icon" viewBox="0 0 24 24" width="18" height="18">
+            <path id="speaker-path" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" fill="currentColor"/>
+          </svg>
+        </button>
+        <button id="restart-btn" class="btn btn-primary">
+          RESTART
+        </button>
+      </div>
+    </div>
+
+    <div class="stats-dashboard game-panel">
+      <div class="stat-card">
+        <span class="stat-label">PLAYER</span>
+        <span class="stat-value" id="player-display">---</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">SCORE</span>
+        <span class="stat-value" id="score-val">00000</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">COMBO</span>
+        <span class="stat-value highlight" id="multiplier-val">1.0x</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">MOVES</span>
+        <span class="stat-value" id="moves-val">0</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">TIME</span>
+        <span class="stat-value" id="timer-val">00:00</span>
+      </div>
+      <div class="stat-card highlight-border">
+        <span class="stat-label gold">HIGH RECORD</span>
+        <span class="stat-value gold" id="high-score-val">00000</span>
+      </div>
+    </div>
+
+    <div class="game-main-layout">
+      <main class="game-board-wrapper">
+        <div id="game-board" class="grid-easy"></div>
+      </main>
+
+      <aside class="leaderboard-sidebar game-panel">
+        <h3 class="sidebar-title">LEADERBOARD</h3>
+        <div class="leaderboard-header">
+          <span>RANK</span>
+          <span>PLAYER</span>
+          <span>SCORE</span>
+        </div>
+        <div class="leaderboard-list" id="leaderboard-list"></div>
+      </aside>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="username-modal">
+    <div class="modal-content game-panel">
+      <div class="modal-crown">🍄</div>
+      <h2 class="modal-title">ENTER NAME</h2>
+      <p class="modal-subtitle">CHOOSE A NAME FOR THE SCOREBOARD</p>
+      <input type="text" id="username-input" class="retro-input" placeholder="PLAYER" maxlength="10">
+      <button id="username-submit-btn" class="btn btn-primary btn-large">ENTER GAME</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="win-modal">
+    <div class="modal-content game-panel">
+      <div class="modal-crown">🏆</div>
+      <h2 class="modal-title">STAGE CLEAR!</h2>
+      <p class="modal-subtitle">You saved the day!</p>
+      
+      <div class="modal-stats">
+        <div class="modal-stat-item">
+          <span class="modal-stat-lbl">SCORE</span>
+          <span class="modal-stat-val highlight" id="modal-score">0</span>
+        </div>
+        <div class="modal-stat-item">
+          <span class="modal-stat-lbl">TIME</span>
+          <span class="modal-stat-val" id="modal-time">00:00</span>
+        </div>
+        <div class="modal-stat-item">
+          <span class="modal-stat-lbl">MOVES</span>
+          <span class="modal-stat-val" id="modal-moves">0</span>
+        </div>
+        <div class="modal-stat-item">
+          <span class="modal-stat-lbl">ACCURACY</span>
+          <span class="modal-stat-val" id="modal-accuracy">100%</span>
+        </div>
+      </div>
+      
+      <div id="new-high-score-banner" class="hidden-banner">
+        NEW HIGH RECORD!
+      </div>
+
+      <button id="play-again-btn" class="btn btn-primary btn-large">PLAY AGAIN</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
