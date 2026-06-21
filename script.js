@@ -389,16 +389,29 @@ const saveScoreToDatabase = async () => {
     time_spent: secondsElapsed
   };
 
-  if (supabaseClient) {
-    try {
-      const { error } = await supabaseClient.from('leaderboard').insert([newRecord]);
-      if (error) {
-        saveLocalScore(newRecord);
+  try {
+    const response = await fetch(
+      "https://mario-score-api.vercel.app/api/submit-score",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newRecord)
       }
-    } catch (e) {
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error("API Error:", data.error);
       saveLocalScore(newRecord);
+      return;
     }
-  } else {
+
+    console.log("Score saved successfully:", data);
+  } catch (e) {
+    console.error("Network Error:", e);
     saveLocalScore(newRecord);
   }
 };
